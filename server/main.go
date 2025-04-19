@@ -25,12 +25,12 @@ func main () {
 			continue
 		}
 		
-		go handleConnection(conn)
+		go HandleConnection(conn)
 	}
 
 }
 
-func handleConnection(conn net.Conn) {
+func HandleConnection(conn net.Conn) {
 	defer conn.Close()
 	reader := bufio.NewReader(conn)
 
@@ -38,10 +38,10 @@ func handleConnection(conn net.Conn) {
 		message, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Println("Connection closed")
-			return
 		}
 
 		fmt.Printf("Received: %s", message)
+
 		conn.Write([]byte("Echo: " + message))
 	}
 
